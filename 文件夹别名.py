@@ -2,13 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """
-Vincy SHI | 史云昔 (c) 2024
-date: 2024-03-21
+partial-derivative (c) 2025
+date: 2025-3-2
 本工具的功能是为 Windows 文件夹设置友好别名。
 在资源管理器中，例如「用户」「桌面」「收藏夹」等文件夹将以中文显示，但不影响其原始路径 "Users", "Desktop" 和 "Favorites"。
 在实践中，我们往往会遇到一些工具或项目不支持中文路径，但又希望在资源管理器中以中文显示，这时候就可以使用本工具为文件夹设置这样的友好别名。
-请将本工具复制到需要设置或修改别名的文件夹下，然后运行。
-注意，具有别名的文件夹不能够在资源管理器中重命名真实路径，你将需要借助本工具来删除别名或修改路径名称。
+请在本工具弹出的命令框中先输入需要更名的文件夹路径，敲击回车；再输入别名，敲击回车。
+注意，1.具有别名的文件夹不能够在资源管理器中重命名真实路径，你将需要借助本工具来删除别名或修改路径名称。
+      2.本工具会使文件夹及其子文件夹显示为只读属性，这是刷新文件夹别名导致的。除了右键-属性-只读中的方框被框选，并无其他副作用。
 """
 
 import configparser
@@ -39,11 +40,13 @@ try:
 
     # 用户交互和准备配置内容
     print(__doc__)
-    ini_file_path = os.path.join(full_dir, "desktop.ini")
+    target_dir = input("请输入希望更名的文件夹路径: ")
+    folder_dir, _, folder_name = target_dir.rpartition("/")
+    ini_file_path = os.path.join(target_dir, "desktop.ini")
     config = configparser.ConfigParser()
     config.read(ini_file_path, SYS_ENCODING)
     if config.has_option(".ShellClassInfo", "LocalizedResourceName"):
-        parent_dir, dir_name = os.path.split(full_dir)
+        parent_dir, dir_name = os.path.split(target_dir)
         alias = config.get(".ShellClassInfo", "LocalizedResourceName")
         option = input(
             f'文件夹 "{dir_name}" 已定义别名 "{alias}"。\n'
@@ -51,7 +54,7 @@ try:
         )
         if option == "0":
             dir_name = input("请输入修改的文件夹本名: ")
-            os.rename(full_dir, os.path.join(parent_dir, dir_name))
+            os.rename(target_dir, os.path.join(parent_dir, dir_name))
             input("已修改。不影响别名的显示。")
             exit(0)
         elif option == "1":
@@ -98,6 +101,8 @@ try:
         full_dir,
         None,
     )
+    folder_disk, _, folder_path = target_dir.rpartition(":")
+    os.system(''.join(["attrib +r ",folder_disk,":\\",folder_path]))
     input("已提交。Windows 将在几分钟内同步。")
 
 except Exception as e:
