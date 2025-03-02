@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-partial-derivative (c) 2025
-date: 2025-3-2
+Vincy SHI, partial-derivative (c) 2024-2025
+date: 2024-03-21
+update: 2025-03-02
 本工具的功能是为 Windows 文件夹设置友好别名。
 在资源管理器中，例如「用户」「桌面」「收藏夹」等文件夹将以中文显示，但不影响其原始路径 "Users", "Desktop" 和 "Favorites"。
 在实践中，我们往往会遇到一些工具或项目不支持中文路径，但又希望在资源管理器中以中文显示，这时候就可以使用本工具为文件夹设置这样的友好别名。
