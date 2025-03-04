@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>477</width>
-    <height>329</height>
+    <width>478</width>
+    <height>358</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,6 +62,16 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="ontopButton">
+        <property name="text">
+         <string>置顶程序</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -342,7 +352,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>477</width>
+     <width>478</width>
      <height>26</height>
     </rect>
    </property>

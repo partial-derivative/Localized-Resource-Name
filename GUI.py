@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'GUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.8.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(477, 329)
+        MainWindow.resize(478, 358)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
@@ -47,6 +47,12 @@ class Ui_MainWindow(object):
         self.horizontalSpacer_8 = QSpacerItem(60, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_8)
+
+        self.ontopButton = QRadioButton(self.centralwidget)
+        self.ontopButton.setObjectName(u"ontopButton")
+        self.ontopButton.setAutoExclusive(False)
+
+        self.horizontalLayout_3.addWidget(self.ontopButton)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
@@ -182,7 +188,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 477, 26))
+        self.menubar.setGeometry(QRect(0, 0, 478, 26))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -197,6 +203,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.folder_dir_text.setText(QCoreApplication.translate("MainWindow", u"\u76ee\u6807\u6587\u4ef6\u5939\u8def\u5f84", None))
+        self.ontopButton.setText(QCoreApplication.translate("MainWindow", u"\u7f6e\u9876\u7a0b\u5e8f", None))
         self.folder_dir_input.setText("")
         self.nickname_text.setText(QCoreApplication.translate("MainWindow", u"\u522b\u540d", None))
         self.replace_name_button.setText(QCoreApplication.translate("MainWindow", u"\u5e94\u7528\u522b\u540d", None))

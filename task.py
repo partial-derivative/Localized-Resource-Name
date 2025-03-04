@@ -3,6 +3,7 @@ import ctypes
 import os
 import platform
 import sys
+import subprocess
 
 target_dir = " "
 folder_dir = " "
@@ -84,14 +85,17 @@ def change_ini():
             None,
         )
         folder_disk, _, folder_path = target_dir.rpartition(":")
-        os.system(''.join(["attrib +r ",folder_disk,":\\",folder_path]))
+        run_cmd(''.join(["attrib +r ",folder_disk,":\\",folder_path]))
     except Exception as e:
         check = False
         print("出现错误。")
         return False
     check = True
     return True
-
+# command ：需要执行的cmd命令
+# 0x08000000: 屏蔽命令
+def run_cmd(command):
+    subprocess.call(command, creationflags=0x08000000)
 
 if __name__ == '__main__':
     pass  # result: 3
