@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-Vincy SHI, partial-derivative (c) 2024-2025
-date: 2024-03-21
-update: 2025-03-02
+partial-derivative (c) 2025
+date: 2025-3-2
 本工具的功能是为 Windows 文件夹设置友好别名。
 在资源管理器中，例如「用户」「桌面」「收藏夹」等文件夹将以中文显示，但不影响其原始路径 "Users", "Desktop" 和 "Favorites"。
 在实践中，我们往往会遇到一些工具或项目不支持中文路径，但又希望在资源管理器中以中文显示，这时候就可以使用本工具为文件夹设置这样的友好别名。
@@ -51,28 +50,38 @@ try:
         alias = config.get(".ShellClassInfo", "LocalizedResourceName")
         option = input(
             f'文件夹 "{dir_name}" 已定义别名 "{alias}"。\n'
-            "您希望 修改本名(0) / 修改别名(1) / 清除别名(2) / 取消(-1): "
+            "您希望  修改别名(1) / 清除别名(2) : "
         )
-        if option == "0":
-            dir_name = input("请输入修改的文件夹本名: ")
-            os.rename(target_dir, os.path.join(parent_dir, dir_name))
-            input("已修改。不影响别名的显示。")
-            exit(0)
-        elif option == "1":
+
+        if option == "1":
             alias = input("请输入修改的文件夹别名: ")
             config.set(".ShellClassInfo", "LocalizedResourceName", alias)
         elif option == "2":
             config.remove_option(".ShellClassInfo", "LocalizedResourceName")
-        else:
-            input("已取消。")
-            exit(0)
+
     elif config.has_section(".ShellClassInfo"):
-        alias = input("请输入添加的文件夹别名: ")
-        config.set(".ShellClassInfo", "LocalizedResourceName", alias)
+        option = input(
+            "您希望  修改别名(1) / 清除别名(2) : "
+        )
+
+        if option == "1":
+            alias = input("请输入修改的文件夹别名: ")
+            config.set(".ShellClassInfo", "LocalizedResourceName", alias)
+        elif option == "2":
+            config.remove_option(".ShellClassInfo", "LocalizedResourceName")
+
     else:
-        alias = input("请输入添加的文件夹别名: ")
-        config.add_section(".ShellClassInfo")
-        config.set(".ShellClassInfo", "LocalizedResourceName", alias)
+        option = input(
+            "您希望  修改别名(1) / 清除别名(2) : "
+        )
+
+        if option == "1":
+            alias = input("请输入修改的文件夹别名: ")
+            config.add_section(".ShellClassInfo")
+            config.set(".ShellClassInfo", "LocalizedResourceName", alias)
+        elif option == "2":
+            input("当前文件夹无别名")
+            exit(0)
 
     # 写入配置并提交系统更改请求
     FILE_ATTRIBUTE_HIDDEN = 0x00000002
