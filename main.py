@@ -42,15 +42,25 @@ class MainWindow(QMainWindow):
                 option = 1
             else:
                 option = 0
+            result = 4
             self.ui.result.setStyleSheet("QLabel { color : black; }")
-            self.ui.result.setText("please wait")
+            self.ui.result.setText("请等待")
 
             result = nick_name(input1, input2, option)
             QtTest.QTest.qWait(500)
             self.ui.runButton.setEnabled(True)
-            if result:
-                self.ui.result.setText("Done")
+            if result==0:
+                self.ui.result.setText("完成")
                 self.ui.result.setStyleSheet("QLabel { color : green; }")
+            elif result==1:
+                self.ui.result.setText("路径为空")
+                self.ui.result.setStyleSheet("QLabel { color : red; }")
+            elif result==2:
+                self.ui.result.setText("别名为空")
+                self.ui.result.setStyleSheet("QLabel { color : red; }")
+            elif result==3:
+                self.ui.result.setText("路径有误")
+                self.ui.result.setStyleSheet("QLabel { color : red; }")
             else:
                 self.ui.result.setText("Error")
                 self.ui.result.setStyleSheet("QLabel { color : red; }")

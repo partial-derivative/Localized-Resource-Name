@@ -13,10 +13,10 @@ ini_file_path = " "
 SYS_VERSION = platform.version().split(".")[0]
 SYS_ENCODING = "utf-16" if SYS_VERSION in ["10", "11"] else "ANSI"
 config = configparser.ConfigParser()
-check = False
+check = 0
 def nick_name(target_folder: str, nickname: str, option):
 
-    global target_dir, folder_dir, folder_name, ini_file_path, alias
+    global target_dir, folder_dir, folder_name, ini_file_path, alias, check
     target_dir = target_folder
     folder_dir, _, folder_name = target_dir.rpartition("/")
     ini_file_path = os.path.join(target_dir, "desktop.ini")
@@ -29,9 +29,9 @@ def nick_name(target_folder: str, nickname: str, option):
         elif option == 1:
             delete()
         else:
-            pass #err
+            check = 2 #别名为空
     else:
-        pass #err
+        check = 1 #无路径
     return check
 def create():
      config.read(ini_file_path, SYS_ENCODING)
@@ -45,13 +45,14 @@ def create():
         change_ini()
 
 def delete():
+    global check
     config.read(ini_file_path, SYS_ENCODING)
     if config.has_option(".ShellClassInfo", "LocalizedResourceName") or config.has_section(".ShellClassInfo"):
         # 若有配置文件，则删除别名，否则退出
         config.remove_option(".ShellClassInfo", "LocalizedResourceName")
         change_ini()
     else:
-        pass
+        check = False
         # del
 def change_ini():
     global check
@@ -87,10 +88,9 @@ def change_ini():
         folder_disk, _, folder_path = target_dir.rpartition(":")
         run_cmd(''.join(["attrib +r ",folder_disk,":\\",folder_path]))
     except Exception as e:
-        check = False
-        print("出现错误。")
+        check = 3 #路径有误
         return False
-    check = True
+    check = 0 #正确
     return True
 # command ：需要执行的cmd命令
 # 0x08000000: 屏蔽命令
